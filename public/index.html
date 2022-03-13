@@ -6,8 +6,11 @@
 </head>
 
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+  <h1>File uploader</h1>
+  <form action="/upfile" method="post" enctype="multipart/form-data">
+    <input type="file" name="upfile" id="upfile"/>
+    <button type="submit">Upload</button>
+  </form>
 </body>
 
 </html>
