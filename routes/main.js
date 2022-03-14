@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const dns = require('dns/promises');
+const dns = require('dns').promises;
+const multer = require('multer');
+const upload = multer({ dest: 'uploads' });
 const urls = {}
 
 router.get('/whoami', function (req, res, next) {
@@ -19,15 +21,19 @@ router.get('/:date?', function (req, res, next) {
 })
 router.post('/shorturl', async function (req, res, next) {
     const url = req.body.url
-    try {
-        dns.lookup(url, 6)
+    dns.lookup(url, 6).then(data => {
         if (urls.hasOwnProperty(url))
             urls[url] = Object.keys(url).length + 1
         res.json({ original_url: url, short_url: urls[url] })
-    } catch (e) {
+    }).catch(err => {
         res.send({ error: 'invalid url' })
-    }
+    })
 })
+
+router.post('/fileanalyse', upload.single('upfile'), async function (req, res, next) {
+    res.json({ name: req.file.originalname, type: req.file.mimetype, size: req.file.size })
+})
+
 router.get('/shorturl/:shorturl', async function (req, res, next) {
     const key = req.params.shorturl
     res.redirect(urls[key])
