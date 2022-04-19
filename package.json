@@ -2,6 +2,7 @@
   "name": "fcc-backend-cert",
   "version": "0.0.1",
   "private": true,
+  "main": "app.js",
   "scripts": {
     "start": "nodemon ./bin/www"
   },
@@ -12,6 +13,8 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.0",
     "morgan": "~1.9.1",
     "multer": "^1.4.4"
   },
